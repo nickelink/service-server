@@ -1,13 +1,13 @@
 {
   "entryFile": "src/index.ts",
-  "controllerPathGlobs": ["./src/**/controller.ts"],
+  "controllerPathGlobs": ["./src/**/*.controller.ts"],
   "spec": {
     "outputDirectory": "./docs",
     "specVersion": 3,
     "spec": {
       "servers": [
         {
-          "url": "http://localhost:3000",
+          "url": "http://localhost:3001/api",
           "description": "Local server"
         }
       ]
