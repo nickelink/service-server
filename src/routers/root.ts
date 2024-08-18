@@ -28,7 +28,20 @@ rootRouter.get('/healthcheck', (_req, res, next) => {
 });
 
 rootRouter.get('', (req, res) => {
-  res.send('Express + TypeScript Server');
+  res.send(`
+  <html lang="en">
+  <head>
+    <title>Serice Server</title>
+  </head>
+  <body style="background: darkgrey">
+    <h1>Express + TypeScript Server</h1>
+    <p style="font-size: 24px">
+      <a style="padding: 10px; border: 2px solid darkmagenta; border-radius: 20px"  href="/docs" >OpenAPI</a>
+         for Service Server
+    </p>
+  </body>
+  </html>
+  `);
 });
 
 export { rootRouter };

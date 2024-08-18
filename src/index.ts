@@ -1,10 +1,8 @@
-import dotenv from 'dotenv';
 import { App } from './App';
 import { routes } from './routes';
+import { Env } from '$env';
 
-dotenv.config();
-
-const port = process.env.PORT || 3000;
+const port = Env.PORT;
 
 const app = new App(routes);
 

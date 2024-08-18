@@ -1,18 +1,18 @@
 import express, { Application } from 'express';
-// import Swagger from "swagger-ui-express";
-import { Controller } from '$models';
+import Swagger from 'swagger-ui-express';
+import { IRouter } from '$models';
 import { Api } from '$constants';
 import { errorMiddleware } from '$middlewares';
 import { rootRouter } from '$routers';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
-// import swaggerDocument from "../docs/swagger.json";
+import swaggerDocument from '../docs/swagger.json';
 
 export class App {
   public app: Application;
 
-  constructor(controllers: Controller[]) {
+  constructor(controllers: IRouter[]) {
     this.app = express();
 
     this.initialiseConfig();
@@ -31,12 +31,12 @@ export class App {
 
   private initialiseRoutes(): void {
     this.app.use(Api.ROOT, rootRouter);
-    // this.app.use(Api.DOCS, Swagger.serve, Swagger.setup(swaggerDocument));
+    this.app.use(Api.DOCS, Swagger.serve, Swagger.setup(swaggerDocument));
   }
 
-  private initialiseControllers(controllers: Controller[]): void {
-    controllers.forEach((controller: Controller) => {
-      this.app.use(Api.API, controller.router);
+  private initialiseControllers(controllers: IRouter[]): void {
+    controllers.forEach((controller: IRouter) => {
+      this.app.use(`${Api.API}${controller.path}`, controller.router);
     });
   }
 

@@ -1,9 +1,9 @@
-import type { Controller } from '$models';
-import { rootRouter } from './routers/root';
+import type { IRouter } from '$models';
+import { exampleRouter } from '$routers';
 
-export const routes: Controller[] = [
+export const routes: IRouter[] = [
   {
-    path: '',
-    router: rootRouter,
+    path: '/example',
+    router: exampleRouter,
   },
 ];
