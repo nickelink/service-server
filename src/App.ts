@@ -1,7 +1,13 @@
 import express, { Application } from 'express';
+// import Swagger from "swagger-ui-express";
 import { Controller } from '$models';
 import { Api } from '$constants';
 import { errorMiddleware } from '$middlewares';
+import { rootRouter } from '$routers';
+import cookieParser from 'cookie-parser';
+import compression from 'compression';
+import cors from 'cors';
+// import swaggerDocument from "../docs/swagger.json";
 
 export class App {
   public app: Application;
@@ -9,15 +15,28 @@ export class App {
   constructor(controllers: Controller[]) {
     this.app = express();
 
-    // this.initialiseConfig();
-    // this.initialiseRoutes();
+    this.initialiseConfig();
+    this.initialiseRoutes();
     this.initialiseControllers(controllers);
     this.initialiseErrorHandling();
   }
 
+  private initialiseConfig(): void {
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(cookieParser());
+    this.app.use(compression());
+    this.app.use(cors());
+  }
+
+  private initialiseRoutes(): void {
+    this.app.use(Api.ROOT, rootRouter);
+    // this.app.use(Api.DOCS, Swagger.serve, Swagger.setup(swaggerDocument));
+  }
+
   private initialiseControllers(controllers: Controller[]): void {
     controllers.forEach((controller: Controller) => {
-      this.app.use(Api.ROOT, controller.router);
+      this.app.use(Api.API, controller.router);
     });
   }
 
