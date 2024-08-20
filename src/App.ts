@@ -8,20 +8,24 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
 import swaggerDocument from '../docs/swagger.json';
+import { connectToDb, Env } from '$utils';
 
 export class App {
   public app: Application;
+  private readonly DATABASE_URL: string;
 
   constructor(controllers: IRouter[]) {
     this.app = express();
+    this.DATABASE_URL = Env.DATABASE_URL;
 
-    this.initialiseConfig();
-    this.initialiseRoutes();
-    this.initialiseControllers(controllers);
-    this.initialiseErrorHandling();
+    this.initConfig();
+    this.initRoutes();
+    this.initControllers(controllers);
+    this.initErrorHandling();
+    this.initDatabaseConnection(this.DATABASE_URL);
   }
 
-  private initialiseConfig(): void {
+  private initConfig(): void {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
@@ -29,19 +33,23 @@ export class App {
     this.app.use(cors());
   }
 
-  private initialiseRoutes(): void {
+  private initRoutes(): void {
     this.app.use(Api.ROOT, rootRouter);
     this.app.use(Api.DOCS, Swagger.serve, Swagger.setup(swaggerDocument));
   }
 
-  private initialiseControllers(controllers: IRouter[]): void {
+  private initControllers(controllers: IRouter[]): void {
     controllers.forEach((controller: IRouter) => {
       this.app.use(`${Api.API}${controller.path}`, controller.router);
     });
   }
 
-  private initialiseErrorHandling(): void {
+  private initErrorHandling(): void {
     this.app.use(errorMiddleware);
+  }
+
+  private initDatabaseConnection(databaseUrl: string): void {
+    connectToDb(databaseUrl);
   }
 
   public listen(port: string | number, callback: VoidFunction): void {
