@@ -1,14 +1,16 @@
-import express, { Application } from 'express';
+import type { Application } from 'express';
+import express from 'express';
 import Swagger from 'swagger-ui-express';
-import { IRouter } from '$models';
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+
 import { Api } from '$constants';
 import { errorMiddleware } from '$middlewares';
+import type { IRouter } from '$models';
 import { rootRouter } from '$routers';
-import cookieParser from 'cookie-parser';
-import compression from 'compression';
-import cors from 'cors';
-import swaggerDocument from '../docs/swagger.json';
 import { connectToDb, Env } from '$utils';
+import swaggerDocument from '../docs/swagger.json';
 
 export class App {
   public app: Application;

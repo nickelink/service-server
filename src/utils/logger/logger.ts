@@ -1,6 +1,6 @@
 import winston from 'winston';
-import { LogPath, Dateformat } from '$constants';
 
+import { Dateformat, LogPath } from '$constants';
 import { Env } from '../env';
 
 const levels = {

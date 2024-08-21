@@ -14,7 +14,7 @@
     "tsc": "tsc --noEmit",
     "prepare": "husky",
     "generateDocs": "tsoa spec",
-    "start-db": "mongod --config /opt/homebrew/etc/mongod.conf --fork",
+    "start-db": "mongod --dbpath ~/data/service-server/ --config /opt/homebrew/etc/mongod.conf --fork",
     "check-db": "ps aux | grep -v grep | grep mongod"
   },
   "dependencies": {
@@ -45,6 +45,7 @@
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "6.6.0",
+    "eslint-plugin-simple-import-sort": "12.1.1",
     "husky": "9.1.4",
     "nodemon": "3.1.4",
     "prettier": "3.3.3",

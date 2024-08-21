@@ -1,6 +1,6 @@
+import { Env } from '$utils';
 import { App } from './App';
 import { routes } from './routes';
-import { Env } from '$utils';
 
 const port = Env.PORT;
 

@@ -5,6 +5,7 @@
     "sourceType": "module"
   },
   "plugins": [
+    "simple-import-sort",
     "@typescript-eslint"
   ],
   "extends": [
@@ -17,6 +18,32 @@
     "@typescript-eslint/consistent-type-definitions": [
       "error",
       "type"
+    ],
+    "@typescript-eslint/consistent-type-imports": "error",
+    "sort-imports": "off",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          [
+            "^express",
+            "^@?\\w",
+            "^co"
+          ],
+          [
+            "tsoa"
+          ],
+          [
+            "^\\$+",
+            "^\\.\\.(?!/?$)",
+            "^\\.\\./?$",
+            "^\\./(?=.*)(?!/?$)",
+            "^\\.(?!/?$)",
+            "^\\./?$",
+            "^.+\\.s?css$"
+          ]
+        ]
+      }
     ]
   },
   "env": {

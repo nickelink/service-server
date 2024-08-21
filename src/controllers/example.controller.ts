@@ -1,4 +1,5 @@
 import { Controller, Get, Route, Tags } from 'tsoa';
+
 import { HttpCode, HttpReason, Message } from '$constants';
 
 @Route(`/example`)
