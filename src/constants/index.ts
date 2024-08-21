@@ -4,3 +4,5 @@ export * from './httpCode';
 export * from './httpMessage';
 export * from './other';
 export * from './path';
+
+export * from './models';

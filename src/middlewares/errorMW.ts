@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
-import { HttpException } from '$utils';
+import type { NextFunction, Request, Response } from 'express';
 
 import { HttpCode, HttpReason, Message } from '$constants';
+import type { HttpException } from '$utils';
 
 export const errorMiddleware = (
   error: HttpException,
